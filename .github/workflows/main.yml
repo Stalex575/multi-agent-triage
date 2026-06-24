@@ -1,0 +1,61 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  CI/CD — Build, Test, and Docker Validation
+# ─────────────────────────────────────────────────────────────────────────────
+name: CI — Build, Test & Docker
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Python setup ─────────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ── 3. Cache pip dependencies ───────────────────────────────────────
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-
+
+      # ── 4. Install dependencies ─────────────────────────────────────────
+      - name: Install project and dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-mock pytest-asyncio
+          pip install -e .
+
+      # ── 5. Run test suite ───────────────────────────────────────────────
+      - name: Run pytest
+        run: pytest -v --tb=short
+
+      # ── 6. Docker Buildx setup ─────────────────────────────────────────
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # ── 7. Validate Docker image builds ────────────────────────────────
+      - name: Test-build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: multi-agent-triage-router:ci-${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

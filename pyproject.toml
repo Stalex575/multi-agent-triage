@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "pytest-mock", "pytest-asyncio"]
 
 [project.scripts]
 triage-router = "triage_router.cli:main"

@@ -1,3 +1,4 @@
+# ── Core application ──────────────────────────────────────────
 langgraph
 langchain-google-genai
 langchain-core
@@ -5,5 +6,8 @@ pinecone[grpc]
 python-dotenv
 pydantic
 typing-extensions
-pytest
 
+# ── Testing / Dev ─────────────────────────────────────────────
+pytest
+pytest-mock
+pytest-asyncio
