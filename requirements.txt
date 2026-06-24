@@ -1,0 +1,9 @@
+langgraph
+langchain-google-genai
+langchain-core
+pinecone[grpc]
+python-dotenv
+pydantic
+typing-extensions
+pytest
+

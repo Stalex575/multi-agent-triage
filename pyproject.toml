@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multi-agent-triage-router"
+version = "0.1.0"
+description = "Production-grade LangGraph multi-agent triage and routing system using Gemini and Pinecone."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "langgraph",
+  "langchain-google-genai",
+  "langchain-core",
+  "pinecone[grpc]",
+  "python-dotenv",
+  "pydantic",
+  "typing-extensions",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+triage-router = "triage_router.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
