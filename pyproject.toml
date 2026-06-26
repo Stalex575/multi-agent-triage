@@ -16,6 +16,8 @@ dependencies = [
   "python-dotenv",
   "pydantic",
   "typing-extensions",
+  "fastapi",
+  "uvicorn[standard]",
 ]
 
 [project.optional-dependencies]

@@ -34,6 +34,6 @@ USER appuser
 # ── 5. Expose the future API port ────────────────────────────────────────
 EXPOSE 8000
 
-# Default entrypoint — swap for uvicorn / gunicorn when the API layer lands
-CMD ["python", "-m", "http.server", "8000"]
+# Launch the FastAPI application via uvicorn
+CMD ["uvicorn", "triage_router.api:app", "--host", "0.0.0.0", "--port", "8000"]
 

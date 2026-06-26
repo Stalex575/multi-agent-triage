@@ -58,6 +58,36 @@ class Settings:
             raise SettingsError(f"Missing .env file at {path.resolve()}")
 
         raw = dotenv_values(path)
+        return cls._from_mapping(raw)
+
+    @classmethod
+    def from_environ(cls) -> "Settings":
+        """Load and validate settings from OS environment variables.
+
+        This is the preferred factory for container runtimes (ECS Fargate,
+        Docker) where secrets are injected as environment variables rather
+        than a `.env` file.
+        """
+
+        return cls._from_mapping(os.environ)
+
+    @classmethod
+    def load(cls, env_path: str | Path = DEFAULT_ENV_PATH) -> "Settings":
+        """Smart factory: try `.env` file first, fall back to ``os.environ``.
+
+        Use this when you want the application to work seamlessly in both
+        local development (`.env` present) and container deployments
+        (secrets injected as environment variables).
+        """
+
+        path = Path(env_path)
+        if path.exists():
+            return cls.from_env_file(path)
+        return cls.from_environ()
+
+    @classmethod
+    def _from_mapping(cls, raw: Mapping[str, str | None]) -> "Settings":
+        """Shared construction logic used by all factory methods."""
 
         settings = cls(
             google_api_key=_required(raw, "GOOGLE_API_KEY"),

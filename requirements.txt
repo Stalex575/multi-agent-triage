@@ -6,8 +6,11 @@ pinecone[grpc]
 python-dotenv
 pydantic
 typing-extensions
+fastapi
+uvicorn[standard]
 
 # ── Testing / Dev ─────────────────────────────────────────────
 pytest
 pytest-mock
 pytest-asyncio
+httpx
