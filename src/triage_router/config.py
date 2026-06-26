@@ -99,7 +99,7 @@ class Settings:
             pinecone_cache_namespace=_get(raw, "PINECONE_CACHE_NAMESPACE", "semantic-cache"),
             pinecone_db_namespace=_get(raw, "PINECONE_DB_NAMESPACE", "db-infra-context"),
             pinecone_devops_namespace=_get(raw, "PINECONE_DEVOPS_NAMESPACE", "cloud-devops-context"),
-            heavy_model=_get(raw, "GEMINI_HEAVY_MODEL", "gemini-3.5-flash"),
+            heavy_model=_get(raw, "GEMINI_HEAVY_MODEL", "gemini-3.1-flash-lite"), # temporarily using lite to avoid 503s
             fast_model=_get(raw, "GEMINI_FAST_MODEL", "gemini-3.1-flash-lite"),
             embedding_model=_get(raw, "GEMINI_EMBEDDING_MODEL", "gemini-embedding-2"),
             embedding_dimension=_get_int(raw, "GEMINI_EMBEDDING_DIMENSION", 3072),
