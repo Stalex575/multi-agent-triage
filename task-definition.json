@@ -27,6 +27,10 @@
         {
           "name": "PINECONE_API_KEY",
           "value": "PLACEHOLDER"
+        },
+        {
+          "name": "PINECONE_INDEX_NAME",
+          "value": "multi-agent-triage"
         }
       ],
       "logConfiguration": {
