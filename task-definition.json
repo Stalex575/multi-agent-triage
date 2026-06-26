@@ -1,0 +1,43 @@
+{
+  "family": "triage-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::562475404432:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "triage-container",
+      "image": "PLACEHOLDER_IMAGE",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "GOOGLE_API_KEY",
+          "value": "PLACEHOLDER"
+        },
+        {
+          "name": "PINECONE_API_KEY",
+          "value": "PLACEHOLDER"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/triage-task",
+          "awslogs-region": "eu-north-1",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
+        }
+      }
+    }
+  ]
+}
