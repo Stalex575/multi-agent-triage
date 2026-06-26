@@ -122,6 +122,8 @@ jobs:
           environment-variables: |
             GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
             PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}
+            LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}
+            LANGCHAIN_PROJECT=${{ secrets.LANGCHAIN_PROJECT }}
 
       # ── 6. Deploy to Amazon ECS ────────────────────────────────────────
       - name: Deploy to Amazon ECS
