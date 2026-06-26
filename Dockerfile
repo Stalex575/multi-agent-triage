@@ -35,4 +35,5 @@ USER appuser
 EXPOSE 8000
 
 # Default entrypoint — swap for uvicorn / gunicorn when the API layer lands
-CMD ["python", "-m", "triage_router.cli", "--help"]
+CMD ["python", "-m", "http.server", "8000"]
+
